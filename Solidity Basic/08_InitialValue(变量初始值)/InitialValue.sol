@@ -1,14 +1,23 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 // 变量初始值
 contract InitialValue {
-    // Value Types
-    bool public _bool;  // 初始值 false
-    string public _string;  // 初始值 ""
-    int public _int;  // 初始值 0
-    uint public _uint;  // 初始值 0
-    address public _address;  // 0x0000000000000000000000000000000000000000
+    // 变量
+    bool public _bool; // 初始值 false
+    string public _string; // 初始值 ""
+    int public _int; // 初始值 0
+    uint public _uint; // 初始值 0
+    address public _address; // 0x0000000000000000000000000000000000000000
+
+    // 常量
+    address public constant MY_ADDRESS =
+        0x777788889999AaAAbBbbCcccddDdeeeEfFFfCcCc;
+    uint public constant MY_UINT = 123;
+
+    // 不可变量
+    address public immutable Address1;
+    uint public immutable Amount;
 
     enum ActionSet {
         Buy,
@@ -17,14 +26,15 @@ contract InitialValue {
     }
     ActionSet public _enum; // 初始值第一个元素0
 
-    function fi() internal{} // internal空白方程 
-    function fe() external{} // external空白方程 
+    function fi() internal {} // internal空白方程
+
+    function fe() external {} // external空白方程
 
     // Reference Types
     uint[8] public _staticArray; // 所有成员设为其默认值的静态数组[0,0,0,0,0,0,0,0]
     uint[] public _dynamicArray; // `[]`
 
-    mapping(uint => address) public _mapping;  // 所有元素都为其默认值为mapping
+    mapping(uint => address) public _mapping; // 所有元素都为其默认值为mapping
 
     // 所有成员设为其默认值的结构体0, 0
     struct Student {
@@ -35,6 +45,7 @@ contract InitialValue {
 
     // delete操作符
     bool public _bool2 = true;
+
     function d() external {
         // delete 会让_bool2变为默认值false
         delete _bool2;

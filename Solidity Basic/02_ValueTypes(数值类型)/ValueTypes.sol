@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 contract ValeTypes {
@@ -13,12 +13,14 @@ contract ValeTypes {
 
     // 整数
     int public _int = -1;
+    int8 public i8 = -1;
     uint public _uint = 1;
+    uint8 public u8 = 1;
     uint256 public _number = 20230820;
 
     // 整数运算
     uint256 public _number1 = _number + 1; // +，-，*，/
-    uint256 public _number2 = 2**2; // 指数
+    uint256 public _number2 = 2 ** 2; // 指数
     uint256 public _number3 = 7 % 2; // 取余数
     bool public _numberbool = _number2 > _number3; // 比大小
 
@@ -43,7 +45,7 @@ contract ValeTypes {
     ActiionSet action = ActiionSet.Buy;
 
     // enum可以和uint显示转换
-    function enumToUint() external view returns(uint) {
+    function enumToUint() external view returns (uint) {
         return uint(action);
     }
 }

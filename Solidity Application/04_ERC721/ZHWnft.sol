@@ -20,4 +20,10 @@ contract ZHWnft is ERC721 {
         require(tokenId >= 0 && tokenId < MAX_NUM, "tokenId out of range");
         _mint(to, tokenId);
     }
+
+    // 销毁函数
+    function burn(uint id) external {
+        require(msg.sender == _owners[id], "not owner");
+        _burn(id);
+    }
 }

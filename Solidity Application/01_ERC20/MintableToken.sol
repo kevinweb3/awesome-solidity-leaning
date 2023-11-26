@@ -3,12 +3,18 @@ pragma solidity ^0.8.4;
 
 import "./ERC20.sol";
 import "./Ownable.sol";
+import "./SafeMath.sol";
 
 contract MintableToken is ERC20, Ownable {
+    using SafeMath for uint256;
     event Mint(address indexed to, uint256 amount);
     event MintFinished();
 
     bool public mintingFinished = false;
+
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        // mint(msg.sender, 100 * 10);
+    }
 
     modifier canMint() {
         require(!mintingFinished);
@@ -22,13 +28,14 @@ contract MintableToken is ERC20, Ownable {
      * @return A boolean that indicates if the operation was successful.
      */
     function mint(
+        address _from,
         address _to,
         uint256 _amount
     ) public onlyOwner canMint returns (bool) {
         totalSupply = totalSupply.add(_amount);
         balanceOf[_to] = balanceOf[_to].add(_amount);
         emit Mint(_to, _amount);
-        Transfer(0x0, _to, _amount);
+        emit Transfer(_from, _to, _amount);
         return true;
     }
 
@@ -38,19 +45,23 @@ contract MintableToken is ERC20, Ownable {
      */
     function finishMinting() public onlyOwner returns (bool) {
         mintingFinished = true;
-        MintFinished();
+        emit MintFinished();
         return true;
     }
 }
 
-contract TestToken is MintableToken {
-    string public name;
-    string public symbol;
-    uint8 public decimals;
+// contract TestToken is MintableToken {
+//     // string public name;
+//     // string public symbol;
+//     // uint8 public decimals;
 
-    function _TestToken(string _name, string _symbol, uint8 _decimals) public {
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
-    }
-}
+//     function _TestToken(
+//         string memory _name,
+//         string memory _symbol,
+//         uint8 _decimals
+//     ) public {
+//         name = _name;
+//         symbol = _symbol;
+//         decimals = _decimals;
+//     }
+// }

@@ -1,20 +1,46 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 contract Mapping {
     mapping(uint => address) public idToAddress; // id映射到地址
-    mapping(address => address) public swapPair;  // 币对的映射，地址到地址
+    mapping(address => address) public swapPair; // 币对的映射，地址到地址
+    mapping(address => uint) public myMap;
+    mapping(address => mapping(uint => bool)) public nested;
 
     // 规则1. _KeyType不能是自定义的 下面这个例子会报错
     // 我们定义一个结构体 Struct
     // struct Student{
     //    uint256 id;
-    //    uint256 score; 
+    //    uint256 score;
     //}
     // mapping(Struct => uint) public testVar;
 
-    function writeMap(uint _Key, address _Value)  public{
+    function writeMap(uint _Key, address _Value) public {
         idToAddress[_Key] = _Value;
+    }
+
+    function get(address _addr) public view returns (uint) {
+        return myMap[_addr];
+    }
+
+    function set(address _addr, uint _i) public {
+        myMap[_addr] = _i;
+    }
+
+    function remove(address _addr) public {
+        delete myMap[_addr];
+    }
+
+    function getnested(address _addr1, uint _i) public view returns (bool) {
+        return nested[_addr1][_i];
+    }
+
+    function setnested(address _addr1, uint _i, bool _boo) public {
+        nested[_addr1][_i] = _boo;
+    }
+
+    function removenested(address _addr1, uint _i) public {
+        delete nested[_addr1][_i];
     }
 }
 

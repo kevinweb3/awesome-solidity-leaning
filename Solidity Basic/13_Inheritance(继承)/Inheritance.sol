@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 // 合约继承
@@ -9,12 +9,10 @@ contract Yeye {
         emit Log("Yeye");
     }
 
-    
     function pop() public virtual {
         emit Log("Yeye");
     }
 
-    
     function yeye() public virtual {
         emit Log("Yeye");
     }
@@ -62,12 +60,41 @@ abstract contract A {
     }
 }
 
-contract B is A(1) {
-
-}
+contract B is A(1) {}
 
 contract C is A {
     constructor(uint _c) A(_c * _c) {}
+}
+
+// Base contract X
+contract X {
+    string public name;
+
+    constructor(string memory _name) {
+        name = _name;
+    }
+}
+
+// Base contract Y
+contract Y {
+    string public text;
+
+    constructor(string memory _text) {
+        text = _text;
+    }
+}
+
+// There are 2 ways to initialize parent contract with parameters.
+
+// Pass the parameters here in the inheritance list.
+contract M is X("Input to X"), Y("Input to Y") {
+
+}
+
+contract N is X, Y {
+    // Pass the parameters here in the constructor,
+    // similar to function modifiers.
+    constructor(string memory _name, string memory _text) X(_name) Y(_text) {}
 }
 
 /*

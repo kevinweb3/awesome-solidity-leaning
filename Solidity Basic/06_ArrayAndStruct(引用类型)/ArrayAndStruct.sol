@@ -91,4 +91,23 @@ contract EnumTypes {
     function enumToUint() external view returns(uint) {
         return uint(action);
     }
+
+    function get() public view returns (ActionSet) {
+        return action;
+    }
+
+    // Update status by passing uint into input
+    function set(ActionSet _status) public {
+        action = _status;
+    }
+
+    // You can update to a specific enum like this
+    function cancel() public {
+        action = ActionSet.Sell;
+    }
+
+    // delete resets the enum to its first value, 0
+    function reset() public {
+        delete action;
+    }
 }

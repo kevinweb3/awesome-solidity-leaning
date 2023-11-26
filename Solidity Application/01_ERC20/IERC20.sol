@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 
 interface IERC20 {
     // 释放条件：当 `value` 单位的货币从账户 (`from`) 转账到另一账户 (`to`)时.
-    event Trancefer(address indexed from, address indexed to, uint256 amount);
+    event Transfer(address indexed from, address indexed to, uint256 amount);
 
     // 释放条件：当 `value` 单位的货币从账户 (`owner`) 授权给另一账户 (`spender`)时.
     event Approve(

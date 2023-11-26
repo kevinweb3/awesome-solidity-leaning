@@ -10,8 +10,12 @@ error SendFailed(); // 用send发送ETH失败error
 error CallFailed(); // 用call发送ETH失败error
 
 contract SendETH {
+    address payable public owner;
+
     // 构造函数，payable使得部署的时候可以转eth进去
-    constructor() payable {}
+    constructor() payable {
+        owner = payable(msg.sender);
+    }
 
     // recieve方法，接收eth的时候触发
     receive() external payable {}
@@ -30,10 +34,20 @@ contract SendETH {
         }
     }
 
+    // 充值
+    function deposit() public payable {}
+
+    // 提现
+    function withdraw() public {
+        uint amount = address(this).balance;
+        (bool success, ) = owner.call{value: amount}("");
+        require(success, "withdraw successful");
+    }
+
     // 用call()发送ETH
     function callETH(address payable _to, uint256 amount) external payable {
         // 处理下call的返回值，如果失败，revert交易并发送error
-        (bool success,) = _to.call{value: amount}("");
+        (bool success, ) = _to.call{value: amount}("");
         if (!success) {
             revert CallFailed();
         }
@@ -50,7 +64,7 @@ contract ReceiveETH {
     }
 
     // 返回合约ETH余额
-    function getBalance() public view returns(uint) {
+    function getBalance() public view returns (uint) {
         return address(this).balance;
     }
 }

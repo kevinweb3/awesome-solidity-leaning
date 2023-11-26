@@ -44,7 +44,7 @@ contract ERC20 is IERC20 {
     ) external override returns (bool) {
         balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;
-        emit Trancefer(msg.sender, recipient, amount);
+        emit Transfer(msg.sender, recipient, amount);
         return true;
     }
 
@@ -67,7 +67,7 @@ contract ERC20 is IERC20 {
         allowance[sender][msg.sender] -= amount;
         balanceOf[sender] -= amount;
         balanceOf[recipient] += amount;
-        emit Trancefer(sender, recipient, amount);
+        emit Transfer(sender, recipient, amount);
         return true;
     }
 
@@ -75,13 +75,13 @@ contract ERC20 is IERC20 {
     function mint(uint amount) external {
         balanceOf[msg.sender] += amount;
         totalSupply += amount;
-        emit Trancefer(address(0), msg.sender, amount);
+        emit Transfer(address(0), msg.sender, amount);
     }
 
     // @dev 销毁代币，从 调用者地址 转账给  `0` 地址
     function burn(uint amount) external {
         balanceOf[msg.sender] -= amount;
         totalSupply -= amount;
-        emit Trancefer(msg.sender, address(0), amount);
+        emit Transfer(msg.sender, address(0), amount);
     }
 }
