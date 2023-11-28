@@ -1,0 +1,13 @@
+baseURL = 'https://uniswapv3book.com'
+languageCode = 'zh-cn'
+title = 'Uniswap V3 Book 中文版'
+theme = 'hugo-book'
+canonifyURLs = true
+
+[markup.goldmark.renderer]
+unsafe = true
+[markup.goldmark.tableOfContents]
+startLevel = 1
+
+[markup.tableOfContents]
+  startLevel = 1

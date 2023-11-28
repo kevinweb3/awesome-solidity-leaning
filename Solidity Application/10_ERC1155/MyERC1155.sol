@@ -36,4 +36,17 @@ contract MyERC1155 is ERC1155 {
         }
         _mintBatch(to, ids, amounts, "");
     }
+
+    // 销毁函数
+    function burn(uint256 id, uint256 value) external {
+        _burn(msg.sender, id, value);
+    }
+
+    // 批量销毁函数
+    function batchBurn(
+        uint256[] calldata ids,
+        uint256[] calldata values
+    ) external {
+        _burnBatch(msg.sender, ids, values);
+    }
 }
